@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Clear Water Bay Race | HKUST</title>
+    <!-- Tailwind CSS for modern, clean styling -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- Lucide Icons for clean navigation markers -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        .nav-tab.active {
+            border-bottom-color: #1e3a8a;
+            color: #1e3a8a;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 font-sans text-gray-800 antialiased">
+
+    <!-- Header Banner -->
+    <header class="bg-blue-900 text-white shadow-md sticky top-0 z-50">
+        <div class="max-w-md mx-auto px-4 py-3 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <div class="bg-red-600 p-1.5 rounded-full text-white">
+                    <i data-lucide="map-pin" class="w-5 h-5"></i>
+                </div>
+                <div>
+                    <h1 class="text-md font-bold tracking-wide uppercase">Clear Water Bay Race</h1>
+                    <p class="text-xs text-blue-200">Official Student Companion App</p>
+                </div>
+            </div>
+            <span class="bg-blue-800 text-xs px-2.5 py-1 rounded-full border border-blue-700 font-medium text-blue-100">July 4, 2026</span>
+        </div>
+    </header>
+
+    <!-- Mobile Navigation Bar -->
+    <nav class="bg-white border-b border-gray-200 sticky top-[56px] z-40 shadow-sm">
+        <div class="max-w-md mx-auto flex justify-around text-sm text-gray-500">
+            <button onclick="switchTab('guide')" id="tab-guide" class="nav-tab active py-3 px-2 border-b-2 border-transparent flex items-center space-x-1 focus:outline-none">
+                <i data-lucide="book-open" class="w-4 h-4"></i>
+                <span>Guide & Riddles</span>
+            </button>
+            <button onclick="switchTab('directory')" id="tab-directory" class="nav-tab py-3 px-2 border-b-2 border-transparent flex items-center space-x-1 focus:outline-none">
+                <i data-lucide="search" class="w-4 h-4"></i>
+                <span>Room Finder</span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Main Content Container (Optimized for Mobile/Max Width) -->
+    <main class="max-w-md mx-auto px-4 py-4 mb-12">
+
+        <!-- TAB 1: GUIDE & RIDDLES -->
+        <section id="content-guide" class="space-y-4">
+            <!-- Quick Instructions Card -->
+            <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+                <h2 class="text-lg font-bold text-blue-900 mb-2 flex items-center space-x-2">
+                    <i data-lucide="info" class="w-5 h-5 text-blue-600"></i>
+                    <span>Race Rules & Instructions</span>
+                </h2>
+                <ul class="text-sm space-y-2 text-gray-600 list-disc pl-5">
+                    <li>Read the active riddle below to figure out your next campus target destination.</li>
+                    <li>Stick together! Your entire team must arrive at the destination checkpoint together.</li>
+                    <li>Take the specified <strong>Verification Photo</strong> and upload it immediately to your Student Ambassador's team chat group to unlock your next clue.</li>
+                    <li>Safety first: Please do not run inside hallways, academic blocks, or libraries.</li>
+                </ul>
+            </div>
+
+            <!-- Dynamic Riddle Box -->
+            <div class="bg-gradient-to-br from-blue-900 to-indigo-950 text-white rounded-xl p-5 shadow-md relative overflow-hidden">
+                <div class="absolute -right-6 -bottom-6 opacity-10 text-white">
+                    <i data-lucide="trophy" class="w-32 h-32"></i>
+                </div>
+                <div class="flex justify-between items-center mb-3">
+                    <span id="checkpoint-title" class="bg-red-600 text-xs uppercase tracking-wider font-bold px-2.5 py-1 rounded-full">Checkpoint 1 of 5</span>
+                    <span class="text-xs text-blue-200 flex items-center space-x-1">
+                        <i data-lucide="clock" class="w-3.5 h-3.5"></i>
+                        <span>Time Limit: 16:00</span>
+                    </span>
+                </div>
+                <h3 class="text-xs uppercase text-blue-300 font-semibold tracking-wide mb-1">Your Active Riddle:</h3>
+                <p id="riddle-text" class="text-base font-medium leading-relaxed mb-4 italic">
+                    "I am a bird that never flies, painted in fire under the skies. I point my beak to tell the hour, standing tall with crimson power. What am I?"
+                </p>
+                <div class="border-t border-blue-800 pt-3">
+                    <h4 class="text-xs uppercase text-red-400 font-bold tracking-wide mb-1 flex items-center space-x-1">
+                        <i data-lucide="camera" class="w-3.5 h-3.5"></i>
+                        <span>Verification Photo Requirement:</span>
+                    </h4>
+                    <p id="task-text" class="text-xs text-gray-200">
+                        Find me! Take a high-energy team photo jumping in front of the Red Sundial, and drop it in this chat to clear Checkpoint 1.
+                    </p>
+                </div>
+
+                <!-- Interactive Demo Tracker Actions -->
+                <div class="mt-5 flex space-x-2">
+                    <button onclick="prevCheckpoint()" class="flex-1 bg-blue-800 hover:bg-blue-700 active:bg-blue-950 text-xs py-2 rounded-lg font-medium transition text-center border border-blue-700">
+                        Previous Clue
+                    </button>
+                    <button onclick="nextCheckpoint()" class="flex-1 bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-xs py-2 rounded-lg font-bold transition text-center shadow-sm">
+                        Next Checkpoint →
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: CAMPUS ROOM FINDER DIRECTORY -->
+        <section id="content-directory" class="hidden space-y-4">
+            <div class="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
+                <h2 class="text-lg font-bold text-blue-900 mb-1">Campus Room & Facility Finder</h2>
+                <p class="text-xs text-gray-500 mb-3">Quickly reference the layout position codes of main lecture hubs, dining halls, and student services across campus blocks.</p>
+
+                <!-- Search Input Field bar -->
+                <div class="relative mb-3">
+                    <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-gray-400">
+                        <i data-lucide="search" class="w-4 h-4"></i>
+                    </span>
+                    <input type="text" id="directorySearch" onkeyup="searchDirectory()" placeholder="Search room codes (e.g., LT-A, LG7, Room 2401)..." class="w-full bg-slate-50 border border-gray-200 rounded-lg py-2 pl-9 pr-4 text-xs focus:outline-none focus:ring-1 focus:ring-blue-800 focus:bg-white transition">
+                </div>
+
+                <!-- Directory Grid List -->
+                <div id="directoryList" class="space-y-2 max-h-72 overflow-y-auto pr-1">
+                    <!-- Section: Core Lecture Theaters -->
+                    <div class="directory-item bg-gray-50 p-2.5 rounded-lg border border-gray-100 flex justify-between items-center">
+                        <div>
+                            <h4 class="text-xs font-bold text-gray-900">Lecture Theaters A to G (LT-A – LT-G)</h4>
+                            <p class="text-[11px] text-gray-500">Academic Concourse (Level 2, Main Lift Bank 2)</p>
+                        </div>
+                        <span class="text-[10px] bg-blue-100 text-blue-800 px-2 py-0.5 rounded font-medium">Concourse</span>
+                    </div>
+
+                    <div class="directory-item bg-gray-50 p-2.5 rounded-lg border border-gray-100 flex justify-between items-center">
+                        <div>
+                            <h4 class="text-xs font-bold text-gray-900">Lecture Theaters H to J (LT-H – LT-J)</h4>
+                            <p class="text-[11px] text-gray-500">Academic Concourse North end (Near Science Block)</p>
+                        </div>
+                        <span class="text-[10px] bg-blue-100 text-blue-800 px-2 py-0.5 rounded font-medium">Concourse</span>
+                    </div>
+
+                    <div class="directory-item bg-gray-50 p-2.5 rounded-lg border border-gray-100 flex justify-between items-center">
+                        <div>
+                            <h4 class="text-xs font-bold text-gray-900">Lee Shau Kee Building Rooms (LSK 101-505)</h4>
+                            <p class="text-[11px] text-gray-500">LSK Business Building Main Tower Classrooms</p>
+                        </div>
+                        <span class="text-[10px] bg-indigo-100 text-indigo-800 px-2 py-0.5 rounded font-medium">Business Blg</span>
+                    </div>
+
+                    <div class="directory-item bg-gray-50 p-2.5 rounded-lg border border-gray-100 flex justify-between items-center">
+                        <div>
+                            <h4 class="text-xs font-bold text-gray-900">LG7 Catering Hub (Food Court & Cafeteria)</h4>
+                            <p class="text-[11px] text-gray-500">Library Path / Lift 10-12 (Lower Ground Level 7)</p>
+                        </div>
+                        <span class="text-[10px] bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded font-medium">Dining</span>
+                    </div>
+
+                    <div class="directory-item bg-gray-50 p-2.5 rounded-lg border border-gray-100 flex justify-between items-center">
+                        <div>
+                            <h4 class="text-xs font-bold text-gray-900">Academic Classrooms (Rooms 2301 - 2600)</h4>
+                            <p class="text-[11px] text-gray-500">Main Building Spine Corridor Floor Level 2</p>
+                        </div>
+                        <span class="text-[10px] bg-gray-200 text-gray-800 px-2 py-0.5 rounded font-medium">Main Block</span>
+                    </div>
+
+                    <div class="directory-item bg-gray-50 p-2.5 rounded-lg border border-gray-100 flex justify-between items-center">
+                        <div>
+                            <h4 class="text-xs font-bold text-gray-900">Souvenir Shop & Bookstore</h4>
+                            <p class="text-[11px] text-gray-500">Main Entrance Piazza Marketplace Corridor</p>
+                        </div>
+                        <span class="text-[10px] bg-amber-100 text-amber-800 px-2 py-0.5 rounded font-medium">Piazza</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Fixed Bottom Floating Quick Assistance Status Footer -->
+    <footer class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 py-2 shadow-lg z-50">
+        <div class="max-w-md mx-auto px-4 flex justify-between items-center text-xs text-gray-500">
+            <span class="flex items-center space-x-1">
+                <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                <span class="font-medium text-gray-700">System Connected</span>
+            </span>
+            <span class="italic">Stuck? Ask your nearest Team SA!</span>
+        </div>
+    </footer>
+
+    <!-- Interactive Logic Controller JavaScript Engine Backend -->
+    <script>
+        const checkpoints = [
+            {
+                num: 1,
+                title: "Checkpoint 1 of 5: The Red Sundial",
+                riddle: '"I am a bird that never flies, painted in fire under the skies. I point my beak to tell the hour, standing tall with crimson power. What am I?"',
+                task: "Find me! Take a high-energy team photo jumping in front of the Red Sundial, and drop it in this chat to clear Checkpoint 1."
+            },
+            {
+                num: 2,
+                title: "Checkpoint 2 of 5: Lee Shau Kee Library",
+                riddle: '"I have thousands of stories but cannot speak, quiet comfort is what my guests seek. Bring your card to pass my gate, looking out at the sea view great. Where am I?"',
+                task: "Walk to the main entrance area of the Library. Take a group selfie where everyone is holding up an imaginary book and making a 'shh' sign, then drop it in this chat for Checkpoint 2."
+            },
+            {
+                num: 3,
+                title: "Checkpoint 3 of 5: LSK Business Building",
+                riddle: '"Named after the same generous key, but home to stocks, case studies, and corporate decree. Perched high on the hill with glass so wide, future CEOs study inside. Where am I?"',
+                task: "Head over to the Business Building lobby or outdoor terrace. Take a team photo posing like serious, high-profile corporate business executives, and drop it here to clear Checkpoint 3."
+            },
+            {
+                num: 4,
+                title: "Checkpoint 4 of 5: Shaw Auditorium",
+                riddle: '"I am a giant white circle shaped like a ring, where dancers move and musicians sing. I am the newest architectural crown, standing right at the entrance to this university town. What am I?"',
+                task: "Locate the striking circular Shaw Auditorium building. Take a group photo forming a massive circle with your hands/arms mimicking the shape of the building, and upload it here for Checkpoint 4."
+            },
+            {
+                num: 5,
+                title: "Checkpoint 5 of 5: Academic Concourse",
+                riddle: '"I am a long, indoor highway where thousands walk, beneath white arches where friends stop to talk. LTs line my sides from 1 all the way through, connecting your classes to views bright and blue. Where am I?"',
+                task: "Head to the main hallway of the Concourse. Stand near any of the large Lecture Theater signs (LT-A, LT-B, etc.). Take a group photo pointing enthusiastically at the LT letter, and send it to clear the final checkpoint! Go back to the main room!"
+            }
+        ];
+
+        let currentIndex = 0;
+
+        // UI Tab Switcher Module Logic
+        function switchTab(tabId) {
+            document.getElementById('content-guide').classList.add('hidden');
+            document.getElementById('content-directory').classList.add('hidden');
+            
+            document.getElementById('tab-guide').classList.remove('active');
+            document.getElementById('tab-directory').classList.remove('active');
+
+            document.getElementById('content-' + tabId).classList.remove('hidden');
+            document.getElementById('tab-' + tabId).classList.add('active');
+        }
+
+        // Live Active Progression System Track Engine Controllers
+        function updateRiddleCard() {
+            const cp = checkpoints[currentIndex];
+            document.getElementById('checkpoint-title').innerText = cp.title;
+            document.getElementById('riddle-text').innerText = cp.riddle;
+            document.getElementById('task-text').innerText = cp.task;
+        }
+
+        function nextCheckpoint() {
+            if (currentIndex < checkpoints.length - 1) {
+                currentIndex++;
+                updateRiddleCard();
+            } else {
+                alert("🎉 Spectacular work! You have cleared all 5 riddles! Race to the finish line room to claim victory items!");
+            }
+        }
+
+        function prevCheckpoint() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateRiddleCard();
+            }
+        }
+
+        // Filtering System Search Engine Component Logic
+        function searchDirectory() {
+            let input = document.getElementById('directorySearch').value.toLowerCase();
+            let items = document.getElementsByClassName('directory-item');
+            
+            for (let i = 0; i < items.length; i++) {
+                let text = items[i].innerText.toLowerCase();
+                if (text.includes(input)) {
+                    items[i].classList.remove('hidden');
+                    items[i].classList.add('flex');
+                } else {
+                    items[i].classList.remove('flex');
+                    items[i].classList.add('hidden');
+                }
+            }
+        }
+
+        // Initialize Lucide Icons on Core DOM Load Execution Frame
+        document.addEventListener("DOMContentLoaded", function() {
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
